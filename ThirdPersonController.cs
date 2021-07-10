@@ -67,6 +67,9 @@ namespace StarterAssets
 		private int count;
 		public TextMeshProUGUI countText;
 		
+		// Treasure
+		public TextMeshProUGUI treasureText;
+		
 		// cinemachine
 		private float _cinemachineTargetYaw;
 		private float _cinemachineTargetPitch;
@@ -124,6 +127,7 @@ namespace StarterAssets
 			// Score
 			count = 0;
 			SetCountText();
+			treasureText.text = "";
 		}
 
 		private void Update()
@@ -244,6 +248,11 @@ namespace StarterAssets
 		{
 			countText.text = count.ToString() + " / 18";
 		}
+		
+		void SetTreasureText()
+		{
+			treasureText.text = " Find more wood, dude";
+		}
 
 		private void JumpAndGravity()
 		{
@@ -335,6 +344,7 @@ namespace StarterAssets
 		
 		private void OnTriggerEnter(Collider other)
 		{
+			// Pick Ups
 			if(other.gameObject.CompareTag("PickUp"))
 			{
 				AudioSource.PlayClipAtPoint(woodSound, transform.position);
@@ -342,6 +352,16 @@ namespace StarterAssets
 				count++;
 				
 				SetCountText();
+			}
+			
+			// Treasure
+			if(other.gameObject.CompareTag("Treasure"))
+			{
+				//AudioSource.PlayClipAtPoint(woodSound, transform.position);
+				//other.gameObject.SetActive(false);
+				//count++;
+				
+				SetTreasureText();
 			}
 		}
 	}
