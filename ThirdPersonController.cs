@@ -60,6 +60,9 @@ namespace StarterAssets
 		[Tooltip("For locking the camera position on all axis")]
 		public bool LockCameraPosition = false;
 		
+		// Sound
+		public AudioClip woodSound;
+		
 		// Score
 		private int count;
 		public TextMeshProUGUI countText;
@@ -102,6 +105,7 @@ namespace StarterAssets
 			if (_mainCamera == null)
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+				GetComponent<AudioSource>().Play();
 			}
 		}
 
@@ -238,7 +242,7 @@ namespace StarterAssets
 		
 		void SetCountText()
 		{
-			countText.text = count.ToString() + " / 14";
+			countText.text = count.ToString() + " / 18";
 		}
 
 		private void JumpAndGravity()
@@ -333,6 +337,7 @@ namespace StarterAssets
 		{
 			if(other.gameObject.CompareTag("PickUp"))
 			{
+				AudioSource.PlayClipAtPoint(woodSound, transform.position);
 				other.gameObject.SetActive(false);
 				count++;
 				
