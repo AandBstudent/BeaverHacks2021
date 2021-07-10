@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -58,7 +59,11 @@ namespace StarterAssets
 		public float CameraAngleOverride = 0.0f;
 		[Tooltip("For locking the camera position on all axis")]
 		public bool LockCameraPosition = false;
-
+		
+		// Score
+		private int count;
+		public TextMeshProUGUI countText;
+		
 		// cinemachine
 		private float _cinemachineTargetYaw;
 		private float _cinemachineTargetPitch;
@@ -111,6 +116,10 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+			
+			// Score
+			count = 0;
+			SetCountText();
 		}
 
 		private void Update()
@@ -226,6 +235,11 @@ namespace StarterAssets
 				_animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
 			}
 		}
+		
+		void SetCountText()
+		{
+			countText.text = count.ToString() + " / 14";
+		}
 
 		private void JumpAndGravity()
 		{
@@ -320,6 +334,9 @@ namespace StarterAssets
 			if(other.gameObject.CompareTag("PickUp"))
 			{
 				other.gameObject.SetActive(false);
+				count++;
+				
+				SetCountText();
 			}
 		}
 	}
