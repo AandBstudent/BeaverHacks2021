@@ -251,7 +251,15 @@ namespace StarterAssets
 		
 		void SetTreasureText()
 		{
-			treasureText.text = " Find more wood, dude";
+			if (count < 10)
+			{
+				treasureText.text = "Need more wood";
+			}
+			else
+			{
+				treasureText.text = "Chest Unlocked!";
+				JumpHeight = 1.9f;
+			}
 		}
 
 		private void JumpAndGravity()
